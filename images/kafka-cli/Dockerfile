@@ -3,14 +3,15 @@ WORKDIR /
 ENV PATH="/kafka-cli/bin:$PATH"
 ENV SCALA_VERSION=2.13.0 \
     SCALA_HOME=/usr/share/scala \
-    SBT_VERSION=1.5.5
+    SBT_VERSION=1.5.5 \
+    KAFKA_VERSION=2.8.1
 ENV BOOTSTRAP_SERVER=""
 ENV KFK_USERNAME=""
 ENV KFK_PASSWORD=""
 COPY generate-creds.sh .
 RUN apk update and apk upgrade
 RUN  apk add wget bash
-RUN wget -O kafka https://dlcdn.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+RUN wget -O kafka https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz
 RUN tar -xzf kafka
 RUN mkdir /kafka-cli
 RUN mv kafka_2.13-2.8.0/* /kafka-cli/
