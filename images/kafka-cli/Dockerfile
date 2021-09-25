@@ -14,8 +14,8 @@ RUN  apk add wget bash
 RUN wget -O kafka https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz
 RUN tar -xzf kafka
 RUN mkdir /kafka-cli
-RUN mv kafka_2.13-2.8.0/* /kafka-cli/
-RUN rm -rf kafka kafka_2.13-2.8.0
+RUN mv kafka_2.13-${KAFKA_VERSION}/* /kafka-cli/
+RUN rm -rf kafka kafka_2.13-${KAFKA_VERSION}
 RUN \
   echo "$SCALA_VERSION $SBT_VERSION" && \
   mkdir -p /usr/lib/jvm/java-1.8-openjdk/jre && \
