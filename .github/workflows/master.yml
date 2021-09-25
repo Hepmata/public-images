@@ -4,6 +4,8 @@ on:
     branches:
       - master
       - main
+  schedule:
+    - cron: '0 0 * * 0'
 jobs:
   Build_And_Push:
     runs-on: ubuntu-latest
