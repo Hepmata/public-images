@@ -1,0 +1,28 @@
+name: Master Branch Workflow
+on: 
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  Docker Build and Push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build and Deploy
+        run: |
+          #!/bin/bash
+          current_dir=$(pwd)
+          for folder in images/*
+          do
+            cd $folder
+            image_name=$(echo $folder | awk '{split($0,a,"/"); print a[2]}')
+            docker build -t "${{secrets.DOCKER_HUB_USERNAME}}/public-images:$image_name" .
+            docker push "${{secrets.DOCKER_HUB_USERNAME}}/public-images:$image_name"
+            cd $current_dir
