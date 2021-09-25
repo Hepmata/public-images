@@ -5,7 +5,7 @@ on:
       - master
       - main
 jobs:
-  Docker Build and Push:
+  Build_And_Push:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo 
