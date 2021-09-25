@@ -16,8 +16,8 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and Deploy
+        shell: bash
         run: |
-          #!/bin/bash
           current_dir=$(pwd)
           for folder in images/*
           do
@@ -26,3 +26,4 @@ jobs:
             docker build -t "${{secrets.DOCKER_HUB_USERNAME}}/public-images:$image_name" .
             docker push "${{secrets.DOCKER_HUB_USERNAME}}/public-images:$image_name"
             cd $current_dir
+          done
