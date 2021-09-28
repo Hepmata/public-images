@@ -8,14 +8,22 @@ RUN tar xf nodejs.tar.xz
 RUN mv node-${NODEJS_VERSION}-linux-x64 node
 
 
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 ENV PATH="/opt/node/bin:$PATH"
 WORKDIR /
 COPY --from=builder node /opt/node
 RUN apt update && apt upgrade
 RUN apt install -y git curl jq
 RUN pip3 install awscli
+
+ENV DOCKERVERSION=20.10.7
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
+  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 \
+                 -C /usr/local/bin docker/docker \
+  && rm docker-${DOCKERVERSION}.tgz
 RUN npm i -g serverless
+
+
 CMD ["sls"]
 
 
