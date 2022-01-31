@@ -16,12 +16,14 @@ RUN apt update && apt upgrade -y
 RUN apt install -y git curl jq
 RUN pip3 install awscli
 
-ENV DOCKERVERSION=20.10.7
+ENV DOCKERVERSION=20.10.12
+ENV SERVERLESS_VERSION=3.0.1
+
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 \
                  -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz
-RUN npm i -g serverless
+RUN npm i -g serverless@${SERVERLESS_VERSION}
 
 
 CMD ["sls"]
