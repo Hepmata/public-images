@@ -16,7 +16,7 @@ RUN apt update && apt upgrade -y
 RUN apt install -y git curl jq
 RUN pip3 install awscli
 
-ENV DOCKERVERSION=20.10.7
+ENV DOCKERVERSION=20.10.12
 ENV SERVERLESS_VERSION=2.72.2
 
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
